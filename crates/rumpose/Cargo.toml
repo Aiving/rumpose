@@ -1,0 +1,9 @@
+[package]
+name = "rumpose"
+description = "GUI library similar to Jetpack Compose, built with compose-rt"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+rumpose-core = { workspace = true }
+rumpose-components = { workspace = true }

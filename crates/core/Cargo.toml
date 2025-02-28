@@ -1,0 +1,9 @@
+[package]
+name = "rumpose-core"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+rumpose-runtime = { workspace = true }
+rumpose-layout = { workspace = true }
+rumpose-engine = { workspace = true }

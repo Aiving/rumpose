@@ -1,0 +1,30 @@
+[package]
+name = "examples"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[workspace]
+resolver = "2"
+members = ["crates/*"]
+
+[workspace.dependencies]
+skia-safe = { version = "0.82.0", features = [
+    "textlayout",
+    "gl",
+    "svg",
+    "x11",
+] }
+
+rumpose-components = { path = "crates/components" }
+rumpose-engine = { path = "crates/engine" }
+rumpose-geometry = { path = "crates/geometry" }
+rumpose-graphics = { path = "crates/graphics" }
+rumpose-layout = { path = "crates/layout" }
+rumpose-runtime = { package = "compose-rt", git = "https://github.com/cksac/compose-rt.git" }
+rumpose-core = { path = "crates/core" }
+rumpose = { path = "crates/rumpose" }
+
+[dev-dependencies]
+rumpose = { workspace = true }
+material-colors = "0.4.2"
