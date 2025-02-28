@@ -7,7 +7,7 @@ use std::{
     fmt,
 };
 
-use rumpose_layout::{Constraints, Point2D, Rect2D};
+use rumpose_layout::{Constraints, Point2D, Rect2D, Size2D};
 use rumpose_runtime::ComposeNode;
 
 pub use self::{
@@ -87,6 +87,10 @@ impl Node {
         self.layout_dirty.set(true);
         self.render_dirty.set(true);
     }
+
+    pub fn mark_render_dirty(&self) {
+        self.render_dirty.set(true);
+    }
 }
 
 impl ComposeNode for Node {
@@ -99,10 +103,10 @@ impl Measurable for Node {
         node: &RuntimeNode,
         context: LayoutContext,
         constraints: Constraints,
-    ) -> Rect2D {
+    ) -> Size2D {
         if self.layout_dirty.get() {
-            let area = match &self.phase {
-                NodePhase::Virtual => Rect2D::default(),
+            let size = match &self.phase {
+                NodePhase::Virtual => Size2D::default(),
                 NodePhase::Render(_) => context.measure(node.children[0], constraints),
                 NodePhase::MeasurementCompose(measure_node) => {
                     measure_node.measure(node, context, constraints)
@@ -112,12 +116,12 @@ impl Measurable for Node {
                 }
             };
 
-            *self.area.borrow_mut() = area;
+            self.area.borrow_mut().size = size;
             self.layout_dirty.set(false);
 
-            area
+            size
         } else {
-            *self.area.borrow()
+            self.area.borrow().size
         }
     }
 }
@@ -126,7 +130,7 @@ pub trait NodeExt {
     fn get_area(&self) -> Rect2D;
 
     fn draw(&self, context: RenderContext);
-    fn measure(&self, context: LayoutContext, constraints: Constraints) -> Rect2D;
+    fn measure(&self, context: LayoutContext, constraints: Constraints) -> Size2D;
 
     fn place(&self, x: f32, y: f32);
     fn place_relative(&self, x: f32, y: f32);
@@ -144,7 +148,7 @@ impl NodeExt for crate::RuntimeNode {
         self.data.as_ref().inspect(|value| value.render(&context));
     }
 
-    fn measure(&self, context: LayoutContext, constraints: Constraints) -> Rect2D {
+    fn measure(&self, context: LayoutContext, constraints: Constraints) -> Size2D {
         self.data
             .as_ref()
             .map(|value| value.measure(self, context, constraints))

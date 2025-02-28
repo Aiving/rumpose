@@ -1,6 +1,6 @@
 use std::rc::Rc;
 
-use rumpose_layout::{Constraints, Rect2D};
+use rumpose_layout::{Constraints, Size2D};
 
 use crate::{
     node::{Measure, MeasureCompose, MeasurementComposePhase, MeasurementPhase, Node, NodePhase}, phase::{LayoutContext, SubcomposeContext}, RuntimeNode, Scope
@@ -8,7 +8,7 @@ use crate::{
 
 #[track_caller]
 pub fn subcompose_layout<
-    M: Fn(&RuntimeNode, LayoutContext, Constraints, &SubcomposeContext) -> Rect2D + Clone + 'static,
+    M: Fn(&RuntimeNode, LayoutContext, Constraints, &SubcomposeContext) -> Size2D + Clone + 'static,
 >(
     scope: Scope,
     measure: M,
@@ -40,7 +40,7 @@ pub fn subcompose_layout<
 
 #[track_caller]
 pub fn layout<
-    M: Fn(&RuntimeNode, LayoutContext, Constraints) -> Rect2D + Clone + 'static,
+    M: Fn(&RuntimeNode, LayoutContext, Constraints) -> Size2D + Clone + 'static,
     C: Fn(Scope) + Clone + 'static,
 >(
     scope: Scope,

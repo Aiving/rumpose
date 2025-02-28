@@ -169,16 +169,16 @@ impl ModifierElement for BorderModifier {
                 layout(
                     scope,
                     move |node, context, constraints| {
-                        let mut area = context.measure(
+                        let mut size = context.measure(
                             node.children[0],
                             constraints.offset(-(width * 2.), -(width * 2.)),
                         );
 
                         context.place_relative(node.children[0], width, width);
 
-                        area.size += width * 2.;
+                        size += width * 2.;
 
-                        area
+                        size
                     },
                     move |scope| content(scope),
                 );

@@ -48,6 +48,8 @@ fn app(scope: Scope) {
 }
 ```
 
+![Example Image](./assets/example.png)
+
 ## License
 
 Rumpose is dual-licensed to be compatible with the Rust project and `compose-rt` crate.

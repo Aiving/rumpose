@@ -1,6 +1,6 @@
 use std::{fmt, rc::Rc};
 
-use rumpose_layout::{Constraints, Rect2D};
+use rumpose_layout::{Constraints, Size2D};
 
 use crate::{
     RuntimeNode,
@@ -8,7 +8,7 @@ use crate::{
 };
 
 pub type MeasureCompose =
-    Rc<dyn Fn(&RuntimeNode, LayoutContext, Constraints, &SubcomposeContext) -> Rect2D>;
+    Rc<dyn Fn(&RuntimeNode, LayoutContext, Constraints, &SubcomposeContext) -> Size2D>;
 
 #[derive(Clone)]
 pub struct MeasurementComposePhase {
@@ -23,14 +23,14 @@ impl Measurable for MeasurementComposePhase {
         node: &RuntimeNode,
         context: LayoutContext,
         constraints: Constraints,
-    ) -> Rect2D {
+    ) -> Size2D {
         (self.measurable)(node, context, constraints, &self.context)
     }
 }
 
 impl MeasurementComposePhase {
     pub fn new<
-        F: Fn(&RuntimeNode, LayoutContext, Constraints, &SubcomposeContext) -> Rect2D + 'static,
+        F: Fn(&RuntimeNode, LayoutContext, Constraints, &SubcomposeContext) -> Size2D + 'static,
     >(
         measurable: F,
     ) -> Self {

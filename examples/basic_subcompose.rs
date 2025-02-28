@@ -109,7 +109,7 @@ fn resize_width_column(scope: Scope, content: impl Fn(Scope) + Clone + 'static) 
 
             let mut constraints = Constraints::default();
 
-            constraints.min.width = max_size.size.width;
+            constraints.min.width = max_size.width;
 
             let resized = compose_context.compose(
                 1,
@@ -119,21 +119,18 @@ fn resize_width_column(scope: Scope, content: impl Fn(Scope) + Clone + 'static) 
                 |layout_context, id, node| (id, node.measure(layout_context, constraints)),
             );
 
-            let height = resized.iter().map(|v| v.1.size.height).sum();
+            let height = resized.iter().map(|v| v.1.height).sum();
 
             for (index, (id, _)) in resized.iter().enumerate() {
                 compose_context.place_relative(
                     1,
                     *id,
                     0.,
-                    resized.iter().take(index).map(|v| v.1.size.height).sum(),
+                    resized.iter().take(index).map(|v| v.1.height).sum(),
                 );
             }
 
-            Rect2D::new(
-                Point2D::default(),
-                Size2D::new(constraints.max.width, height),
-            )
+            Size2D::new(constraints.max.width, height)
         },
     );
 }

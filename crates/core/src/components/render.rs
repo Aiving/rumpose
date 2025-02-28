@@ -24,7 +24,7 @@ pub fn draw<D: Fn(&RenderContext) + Clone + 'static, C: Fn(Scope) + Clone + 'sta
                 if !Rc::ptr_eq(&phase.render, &draw) {
                     phase.render = draw;
 
-                    node.mark_dirty();
+                    node.mark_render_dirty();
                 }
             }
 

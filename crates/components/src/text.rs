@@ -132,11 +132,7 @@ pub fn text(scope: Scope, props: TextProps) {
 
                     paragraph.layout(constraints.max.width);
 
-                    Rect2D::new(
-                        Point2D::default(),
-                        constraints
-                            .apply(Size2D::new(paragraph.longest_line(), paragraph.height())),
-                    )
+                    constraints.apply(Size2D::new(paragraph.longest_line(), paragraph.height()))
                 },
                 |_| {},
             );

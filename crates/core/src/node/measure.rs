@@ -1,13 +1,13 @@
 use std::{fmt, rc::Rc};
 
-use rumpose_layout::{Constraints, Rect2D};
+use rumpose_layout::{Constraints, Size2D};
 
 use crate::{
     RuntimeNode,
     phase::{LayoutContext, Measurable},
 };
 
-pub type Measure = Rc<dyn Fn(&RuntimeNode, LayoutContext, Constraints) -> Rect2D>;
+pub type Measure = Rc<dyn Fn(&RuntimeNode, LayoutContext, Constraints) -> Size2D>;
 
 #[derive(Clone)]
 pub struct MeasurementPhase {
@@ -20,13 +20,13 @@ impl Measurable for MeasurementPhase {
         node: &RuntimeNode,
         scope: LayoutContext,
         constraints: Constraints,
-    ) -> Rect2D {
+    ) -> Size2D {
         (self.measurable)(node, scope, constraints)
     }
 }
 
 impl MeasurementPhase {
-    pub fn new<F: Fn(&RuntimeNode, LayoutContext, Constraints) -> Rect2D + 'static>(
+    pub fn new<F: Fn(&RuntimeNode, LayoutContext, Constraints) -> Size2D + 'static>(
         measurable: F,
     ) -> Self {
         Self {

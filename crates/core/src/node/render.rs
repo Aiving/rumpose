@@ -1,6 +1,6 @@
 use std::{fmt, rc::Rc};
 
-use rumpose_layout::{Constraints, Rect2D};
+use rumpose_layout::{Constraints, Size2D};
 
 use super::NodeExt;
 use crate::{
@@ -29,7 +29,7 @@ impl Measurable for RenderPhase {
         node: &RuntimeNode,
         scope: LayoutContext,
         constraints: Constraints,
-    ) -> Rect2D {
+    ) -> Size2D {
         node.measure(scope, constraints)
     }
 }

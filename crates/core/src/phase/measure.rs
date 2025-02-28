@@ -1,7 +1,7 @@
 use std::cell::Ref;
 
 use rumpose_engine::{FontCollection, Surface};
-use rumpose_layout::{Constraints, Rect2D};
+use rumpose_layout::{Constraints, Size2D};
 
 use crate::{Composer, ComposerExt, RuntimeNode, node::NodeExt};
 
@@ -52,7 +52,7 @@ impl<'a> LayoutContext<'a> {
     }
 
     #[must_use]
-    pub fn measure(&self, id: usize, constraints: Constraints) -> Rect2D {
+    pub fn measure(&self, id: usize, constraints: Constraints) -> Size2D {
         let node = &self.composer.nodes[id];
 
         node.measure(*self, constraints)
@@ -65,5 +65,5 @@ pub trait Measurable {
         node: &RuntimeNode,
         context: LayoutContext,
         constraints: Constraints,
-    ) -> Rect2D;
+    ) -> Size2D;
 }

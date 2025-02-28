@@ -4,7 +4,7 @@ use std::{
     rc::Rc,
 };
 
-use rumpose_layout::{Constraints, Rect2D};
+use rumpose_layout::{Constraints, Size2D};
 
 use super::LayoutContext;
 use crate::{
@@ -126,7 +126,7 @@ impl SubcomposeContext {
     }
 
     #[must_use]
-    pub fn measure(&self, key: usize, id: usize, constraints: Constraints) -> Rect2D {
+    pub fn measure(&self, key: usize, id: usize, constraints: Constraints) -> Size2D {
         self.recomposers
             .borrow()
             .get(&key)

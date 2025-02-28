@@ -102,9 +102,9 @@ impl ModifierElement for PaddingModifier {
 
                 context.place_relative(node.children[0], start, top);
 
-                area.size = Size2D::new(
-                    constraints.apply_width(area.size.width + horizontal),
-                    constraints.apply_height(area.size.height + vertical),
+                area = Size2D::new(
+                    constraints.apply_width(area.width + horizontal),
+                    constraints.apply_height(area.height + vertical),
                 );
 
                 area

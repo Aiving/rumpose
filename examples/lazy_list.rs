@@ -106,8 +106,8 @@ fn lazy_column(
                 for (id, area) in areas {
                     compose_context.place_relative(item, id, 0.0, height);
 
-                    width = width.max(area.size.width);
-                    height += area.size.height;
+                    width = width.max(area.width);
+                    height += area.height;
                 }
 
                 composed_items += 1;
@@ -124,10 +124,7 @@ fn lazy_column(
                 (height / (f32::from(composed_items))) * (items_count as f32)
             );
 
-            Rect2D::new(
-                Point2D::default(),
-                root_constraints.apply(Size2D::new(width, height)),
-            )
+            root_constraints.apply(Size2D::new(width, height))
         },
     );
 }
